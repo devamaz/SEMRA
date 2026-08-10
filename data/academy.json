@@ -1,0 +1,28 @@
+{
+  "session": "2026/2027",
+  "term": "1st term",
+  "termStart": "12th of September",
+  "classes": [
+    {
+      "id": "acad-children-weekend",
+      "label": "Children — Saturdays & Sundays",
+      "days": "Saturdays & Sundays",
+      "time": "9:00 AM – 1:00 PM",
+      "form": "islamiyya form universal.pdf"
+    },
+    {
+      "id": "acad-children-after-school",
+      "label": "Children — Monday to Wednesday",
+      "days": "Monday – Wednesday",
+      "time": "4:00 PM – 6:00 PM",
+      "form": "islamiyya form universal.pdf"
+    },
+    {
+      "id": "acad-female-adults",
+      "label": "Female Adults",
+      "days": "Saturdays & Sundays",
+      "time": "4:00 PM – 6:00 PM",
+      "form": "islamiyya form Adult.pdf"
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+[
+  {
+    "id": "evt-eid-2026",
+    "title": "Eid Prayer & Community Feast",
+    "description": "Open Eid prayer at dawn, followed by a shared meal and children's activities on the mosque grounds.",
+    "tag": "Eid al-Adḥā",
+    "date": "2026-06-17",
+    "time": "6:30 AM",
+    "location": "Mosque grounds",
+    "createdAt": "2026-03-01T10:00:00.000Z",
+    "updatedAt": "2026-03-01T10:00:00.000Z"
+  },
+  {
+    "id": "evt-tafsir-weekly",
+    "title": "Weekly Tafsīr Circle",
+    "description": "A verse-by-verse reading after Maghrib, led by our resident teacher. Open to men and women, all ages.",
+    "tag": "Halaqah",
+    "date": "2026-04-03",
+    "time": "After Maghrib",
+    "location": "Main hall",
+    "createdAt": "2026-03-01T10:00:00.000Z",
+    "updatedAt": "2026-03-01T10:00:00.000Z"
+  },
+  {
+    "id": "evt-academy-term",
+    "title": "Islamiyyah Term Resumes",
+    "description": "New term begins for the children's academy. Enrolment is open — Qurʾan, Tajwīd, and Islamic studies.",
+    "tag": "Academy",
+    "date": "2026-08-15",
+    "time": "9:00 AM",
+    "location": "Academy hall",
+    "createdAt": "2026-03-01T10:00:00.000Z",
+    "updatedAt": "2026-03-01T10:00:00.000Z"
+  },
+  {
+    "id": "0cb8fb7c-b937-4c63-a097-ad5108e86089",
+    "title": "Test Event",
+    "description": "This is just a test to see how it will look",
+    "tag": "Academy",
+    "date": "2026-08-08",
+    "time": "9:30 AM",
+    "location": "Mosque grounds",
+    "createdAt": "2026-07-31T17:13:15.885Z",
+    "updatedAt": "2026-07-31T17:13:15.885Z"
+  }
+]
