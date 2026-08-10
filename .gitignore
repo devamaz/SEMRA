@@ -1,0 +1,15 @@
+# Dependencies
+node_modules/
+
+# macOS
+.DS_Store
+
+# Logs
+*.log
+
+# pi agent local config
+.pi/
+
+# Runtime / PII state — never commit live push endpoints or the send log
+data/subscriptions.json
+data/adhan-sent.json
