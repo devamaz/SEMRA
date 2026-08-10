@@ -1,0 +1,1104 @@
+:root {
+  --paper:   oklch(97.5% 0.006 95);
+  --surface: oklch(100% 0 0);
+  --fg:      oklch(22% 0.02 150);
+  --muted:   oklch(48% 0.012 150);
+  --border:  oklch(90% 0.008 90);
+  --deen:    oklch(45% 0.10 160);
+  --deen-d:  oklch(32% 0.09 160);
+  --gold:    oklch(72% 0.12 82);
+  --gold-d:  oklch(55% 0.12 80);
+  --danger:  oklch(56% 0.18 28);
+  --font-display: 'Amiri', 'Iowan Old Style', Georgia, serif;
+  --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  background: oklch(86% 0.01 160);
+  color: var(--fg);
+  font-family: var(--font-body);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100dvh;
+  padding: 24px;
+}
+
+.phone {
+  position: relative;
+  width: 390px;
+  height: 820px;
+  background: var(--paper);
+  border-radius: 46px;
+  box-shadow:
+    0 2px 0 1px oklch(20% 0.02 160) inset,
+    0 0 0 12px oklch(18% 0.02 160 / .9),
+    0 30px 70px rgba(0, 0, 0, .35);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.island {
+  position: absolute;
+  top: 11px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 118px;
+  height: 34px;
+  background: #000;
+  border-radius: 20px;
+  z-index: 50;
+}
+
+.statusbar {
+  height: 50px;
+  flex: 0 0 auto;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 0 26px 6px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 40;
+  pointer-events: none;
+}
+
+.statusbar .ic {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.statusbar svg {
+  width: 16px;
+  height: 16px;
+  fill: #fff;
+}
+
+.home-bar {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 130px;
+  height: 5px;
+  border-radius: 3px;
+  background: oklch(28% 0.02 160 / .85);
+  z-index: 50;
+}
+
+.app {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-bottom: 86px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.app::-webkit-scrollbar {
+  display: none;
+}
+
+.screen {
+  display: none;
+}
+
+.screen.on {
+  display: block;
+  animation: rise .35s ease both;
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* ── Hero ── */
+
+.hero {
+  position: relative;
+  background: linear-gradient(180deg, oklch(40% 0.10 162), oklch(33% 0.09 162));
+  color: #fff;
+  padding: 58px 22px 24px;
+  overflow: hidden;
+  border-radius: 0 0 30px 30px;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'><g fill='none' stroke='%23ffffff' stroke-width='1' opacity='0.10'><path d='M40 4 L48 32 L76 40 L48 48 L40 76 L32 48 L4 40 L32 32 Z'/><circle cx='40' cy='40' r='6'/><circle cx='40' cy='40' r='30'/></g></svg>");
+  background-size: 62px 62px;
+  opacity: .5;
+}
+
+.hero > * {
+  position: relative;
+  z-index: 1;
+}
+
+.bismillah {
+  font-family: var(--font-display);
+  font-size: 19px;
+  color: rgba(255, 255, 255, .85);
+  text-align: center;
+  letter-spacing: .02em;
+  margin-bottom: 8px;
+}
+
+.mosque-name {
+  text-align: center;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 25px;
+  line-height: 1.15;
+  letter-spacing: .01em;
+}
+
+.mosque-name .en {
+  display: block;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-top: 6px;
+}
+
+/* ── Next Prayer card ── */
+
+.next {
+  margin: 18px 16px 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  padding: 18px 20px;
+  box-shadow: 0 8px 24px oklch(45% 0.10 160 / .08);
+}
+
+.next-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.next-label {
+  font-size: 11px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.next-name {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--deen-d);
+  margin-top: 2px;
+}
+
+.next-arabic {
+  font-family: var(--font-display);
+  font-size: 24px;
+  color: var(--deen);
+}
+
+.next-time {
+  font-variant-numeric: tabular-nums;
+}
+
+.countdown {
+  margin-top: 14px;
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+}
+
+.countdown b {
+  font-family: var(--font-body);
+  font-size: 30px;
+  color: var(--deen-d);
+  letter-spacing: -.02em;
+  font-weight: 700;
+}
+
+.countdown span {
+  font-size: 13px;
+  color: var(--muted);
+  font-weight: 500;
+  letter-spacing: .04em;
+}
+
+.countdown .sep {
+  color: var(--border);
+  font-size: 24px;
+  font-weight: 400;
+  padding: 0 2px;
+}
+
+.next-foot {
+  margin-top: 12px;
+  font-size: 12.5px;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--deen);
+}
+
+/* ── Sections ── */
+
+.sec {
+  margin: 22px 18px 0;
+}
+
+.sec-h {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.sec-h h2 {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--deen-d);
+}
+
+/* ── Prayer list ── */
+
+.plist {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+.prow {
+  display: grid;
+  grid-template-columns: 40px 1fr auto auto;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border-top: 1px solid var(--border);
+}
+
+.prow:first-child {
+  border-top: 0;
+}
+
+.prow.now {
+  background: oklch(96% 0.04 160 / .55);
+}
+
+.prow .ic-ico {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: oklch(95% 0.03 160);
+  color: var(--deen-d);
+  display: grid;
+  place-items: center;
+}
+
+.prow .ic-ico svg {
+  width: 20px;
+  height: 20px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.7;
+}
+
+.prow .pn {
+  font-weight: 600;
+  font-size: 15.5px;
+  color: var(--fg);
+}
+
+.prow .pn small {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 14px;
+  color: var(--muted);
+  font-weight: 400;
+}
+
+.prow .pt {
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--fg);
+}
+
+.prow .pm {
+  color: var(--muted);
+  font-size: 12px;
+  margin-left: 2px;
+}
+
+.badge-now {
+  background: var(--deen);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  padding: 4px 8px;
+  border-radius: 999px;
+}
+
+.shots {
+  width: 32px;
+  height: 22px;
+  border-radius: 7px;
+  border: 1.5px solid var(--border);
+  background: transparent;
+  display: grid;
+  place-items: center;
+}
+
+.shots.on {
+  background: var(--deen);
+  border-color: var(--deen);
+}
+
+.shots.on svg {
+  display: block;
+}
+
+.shots svg {
+  display: none;
+  width: 14px;
+  height: 14px;
+  stroke: #fff;
+  fill: none;
+  stroke-width: 2.4;
+}
+
+/* ── Jumu'ah card ── */
+
+.jumuah {
+  margin: 18px 16px 0;
+  border-radius: 20px;
+  overflow: hidden;
+  position: relative;
+  background: linear-gradient(135deg, oklch(38% 0.09 160), oklch(30% 0.08 162));
+  color: #fff;
+  padding: 18px 20px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.jumuah .mb {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, .14);
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+}
+
+.jumuah .mb svg {
+  width: 22px;
+  height: 22px;
+  stroke: #fff;
+  fill: none;
+  stroke-width: 1.6;
+}
+
+.jumuah .jt {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.jumuah .js {
+  font-size: 12.5px;
+  color: rgba(255, 255, 255, .82);
+  margin-top: 2px;
+}
+
+.jumuah .jd {
+  margin-left: auto;
+  text-align: right;
+}
+
+.jumuah .jd b {
+  font-size: 15px;
+  font-variant-numeric: tabular-nums;
+}
+
+.jumuah .jd small {
+  display: block;
+  font-size: 11px;
+  color: var(--gold);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+/* ── Announcements ── */
+
+.an {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 15px 16px;
+  display: flex;
+  gap: 13px;
+  align-items: flex-start;
+  margin-bottom: 11px;
+}
+
+.an .pin {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+}
+
+.an.event .pin {
+  background: oklch(94% 0.05 80);
+  color: var(--gold-d);
+}
+
+.an.gn .pin {
+  background: oklch(94% 0.04 160);
+  color: var(--deen-d);
+}
+
+.an .pin svg {
+  width: 18px;
+  height: 18px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.7;
+}
+
+.an h3 {
+  font-size: 14.5px;
+  font-weight: 600;
+}
+
+.an p {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.45;
+  margin-top: 3px;
+}
+
+.an .meta {
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 7px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.an .tag {
+  font-weight: 700;
+  letter-spacing: .04em;
+}
+
+/* ── Sheet (bottom sheet time editor) ── */
+
+.sheet {
+  position: absolute;
+  inset: 0;
+  z-index: 80;
+  display: none;
+}
+
+.sheet.on {
+  display: block;
+}
+
+.sheet-bg {
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 28, 24, .5);
+  backdrop-filter: blur(2px);
+}
+
+.sheet-card {
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: 14px;
+  background: var(--surface);
+  border-radius: 24px;
+  padding: 20px 20px 26px;
+  box-shadow: 0 -8px 40px rgba(0, 0, 0, .2);
+  animation: up .3s ease both;
+}
+
+@keyframes up {
+  from { transform: translateY(20px); opacity: 0; }
+  to   { transform: none; opacity: 1; }
+}
+
+.sheet-grip {
+  width: 40px;
+  height: 5px;
+  border-radius: 3px;
+  background: var(--border);
+  margin: 0 auto 16px;
+}
+
+.sheet-card h3 {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--deen-d);
+}
+
+.sheet-card .sub {
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+.timepick {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.numselect {
+  flex: 1;
+  background: var(--paper);
+  border: 1.5px solid var(--border);
+  border-radius: 14px;
+  text-align: center;
+}
+
+.numselect label {
+  display: block;
+  font-size: 10px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 600;
+  margin-top: 12px;
+}
+
+.numselect .val {
+  font-size: 30px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--deen-d);
+  padding: 4px 0 12px;
+}
+
+.numselect button {
+  display: inline-block;
+  margin: 10px 6px 14px;
+  width: 34px;
+  height: 30px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: #fff;
+  cursor: pointer;
+  color: var(--deen-d);
+}
+
+.ampm {
+  display: flex;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.ampm button {
+  flex: 1;
+  padding: 10px;
+  border-radius: 12px;
+  border: 1.5px solid var(--border);
+  background: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  color: var(--fg);
+}
+
+.ampm button.sel {
+  background: var(--deen);
+  border-color: var(--deen);
+  color: #fff;
+}
+
+.sheet-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.btn {
+  flex: 1;
+  padding: 13px;
+  border-radius: 13px;
+  border: 0;
+  font-weight: 700;
+  font-size: 14.5px;
+  cursor: pointer;
+}
+
+.btn.ghost {
+  background: var(--paper);
+  color: var(--fg);
+  border: 1.5px solid var(--border);
+}
+
+.btn.primary {
+  background: var(--deen);
+  color: #fff;
+}
+
+/* ── Settings ── */
+
+.setting-group {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.set-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border-top: 1px solid var(--border);
+}
+
+.set-row:first-child {
+  border-top: 0;
+}
+
+.set-row .lab {
+  flex: 1;
+}
+
+.set-row .lab b {
+  font-size: 14.5px;
+  font-weight: 600;
+}
+
+.set-row .lab small {
+  display: block;
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 1px;
+}
+
+.switch {
+  width: 48px;
+  height: 28px;
+  border-radius: 999px;
+  background: var(--border);
+  position: relative;
+  cursor: pointer;
+  flex: 0 0 auto;
+  transition: background .2s;
+}
+
+.switch::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, .2);
+  transition: left .2s;
+}
+
+.switch.on {
+  background: var(--deen);
+}
+
+.switch.on::after {
+  left: 23px;
+}
+
+.seg {
+  display: flex;
+  background: var(--paper);
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  padding: 3px;
+  margin-top: 8px;
+}
+
+.seg button {
+  flex: 1;
+  padding: 8px;
+  border: 0;
+  background: transparent;
+  border-radius: 9px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.seg button.sel {
+  background: var(--deen);
+  color: #fff;
+}
+
+/* ── Screen headers ── */
+
+.hd {
+  padding: 58px 22px 14px;
+}
+
+.hd h1 {
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--deen-d);
+}
+
+.hd p {
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+/* ── Navigation ── */
+
+.nav {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 74px;
+  background: oklch(100% 0 0 / .92);
+  backdrop-filter: blur(20px);
+  border-top: 1px solid var(--border);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  padding-bottom: 14px;
+  z-index: 60;
+}
+
+.nav button {
+  background: none;
+  border: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  color: var(--muted);
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: .02em;
+  cursor: pointer;
+}
+
+.nav button svg {
+  width: 24px;
+  height: 24px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.7;
+}
+
+.nav button.on {
+  color: var(--deen-d);
+}
+
+.nav button.on svg {
+  stroke-width: 2.2;
+}
+
+.nav .notif-dot {
+  position: relative;
+}
+
+.nav .notif-dot::after {
+  content: "";
+  position: absolute;
+  top: 13px;
+  right: 50%;
+  margin-right: -14px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--gold-d);
+  border: 1.5px solid var(--surface);
+}
+
+/* ── Install banner (PWA beforeinstallprompt / iOS tip) ── */
+
+.install-banner {
+  margin: 14px 16px 0;
+  padding: 14px 14px 12px;
+  border-radius: 16px;
+  background: linear-gradient(
+    135deg,
+    oklch(42% 0.10 162),
+    oklch(34% 0.09 162)
+  );
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: 0 8px 24px oklch(30% 0.06 160 / 0.2);
+}
+
+.install-banner--settings {
+  margin: 0;
+  box-shadow: none;
+}
+
+.install-banner--ios {
+  background: linear-gradient(
+    135deg,
+    oklch(48% 0.08 160),
+    oklch(38% 0.07 160)
+  );
+}
+
+.install-banner-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.install-banner-text b {
+  font-size: 14.5px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+.install-banner-text small {
+  font-size: 12.5px;
+  line-height: 1.4;
+  opacity: 0.9;
+}
+
+.install-banner-text em {
+  font-style: normal;
+  font-weight: 600;
+  color: var(--gold);
+}
+
+.install-banner-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.install-btn {
+  appearance: none;
+  border: 0;
+  border-radius: 999px;
+  padding: 9px 16px;
+  background: #fff;
+  color: var(--deen-d);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.install-btn:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.install-btn--compact {
+  padding: 8px 12px;
+  background: var(--deen);
+  color: #fff;
+  flex: 0 0 auto;
+}
+
+.install-dismiss {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: #fff;
+  font: inherit;
+  font-size: 12.5px;
+  font-weight: 600;
+  opacity: 0.85;
+  cursor: pointer;
+  padding: 8px 6px;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* ── Note strip ── */
+
+.note-strip {
+  margin: 16px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: oklch(94% 0.04 80);
+  color: var(--gold-d);
+  font-size: 12.5px;
+  line-height: 1.45;
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+}
+
+.note-strip svg {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 auto;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.7;
+}
+
+/* ── Mobile browser (narrow) — drop phone bezel ── */
+
+@media (max-width: 430px) {
+  body {
+    padding: 0;
+    background: var(--paper);
+  }
+  .phone {
+    width: 100vw;
+    height: 100dvh;
+    border-radius: 0;
+    box-shadow: none;
+  }
+  .island {
+    display: none;
+  }
+  .statusbar {
+    display: none;
+  }
+  .hd,
+  .hero {
+    padding-top: max(18px, env(safe-area-inset-top, 0px));
+  }
+  .home-bar {
+    display: none;
+  }
+  .nav {
+    padding-bottom: max(14px, env(safe-area-inset-bottom, 0px));
+    height: auto;
+    min-height: 74px;
+  }
+  .app {
+    padding-bottom: calc(86px + env(safe-area-inset-bottom, 0px));
+  }
+}
+
+/*
+ * Installed User app (standalone / fullscreen / minimal-ui).
+ * Also html.standalone for legacy iOS navigator.standalone.
+ * Full viewport — no mock island, status bar, or home indicator.
+ */
+@media (display-mode: standalone),
+       (display-mode: fullscreen),
+       (display-mode: minimal-ui) {
+  body {
+    padding: 0;
+    background: var(--paper);
+    align-items: stretch;
+    justify-content: stretch;
+  }
+  .phone {
+    width: 100%;
+    max-width: none;
+    height: 100dvh;
+    border-radius: 0;
+    box-shadow: none;
+  }
+  .island,
+  .statusbar,
+  .home-bar {
+    display: none;
+  }
+  .hd,
+  .hero {
+    padding-top: max(18px, env(safe-area-inset-top, 0px));
+  }
+  .nav {
+    padding-bottom: max(14px, env(safe-area-inset-bottom, 0px));
+    height: auto;
+    min-height: 74px;
+  }
+  .app {
+    padding-bottom: calc(86px + env(safe-area-inset-bottom, 0px));
+  }
+}
+
+html.standalone body {
+  padding: 0;
+  background: var(--paper);
+  align-items: stretch;
+  justify-content: stretch;
+}
+
+html.standalone .phone {
+  width: 100%;
+  max-width: none;
+  height: 100dvh;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+html.standalone .island,
+html.standalone .statusbar,
+html.standalone .home-bar {
+  display: none;
+}
+
+html.standalone .hd,
+html.standalone .hero {
+  padding-top: max(18px, env(safe-area-inset-top, 0px));
+}
+
+html.standalone .nav {
+  padding-bottom: max(14px, env(safe-area-inset-bottom, 0px));
+  height: auto;
+  min-height: 74px;
+}
+
+html.standalone .app {
+  padding-bottom: calc(86px + env(safe-area-inset-bottom, 0px));
+}
