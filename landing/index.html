@@ -1,0 +1,1011 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>
+            SEMRA — Suncity Estate Muslim Residents Association | Abuja
+        </title>
+        <meta
+            name="description"
+            content="SEMRA serves the Muslim community of Suncity Estate, Abuja: daily & Jumuʿah prayers, an Islamiyyah academy for children, community events, and a trustworthy place to give sadaqah."
+        />
+        <meta name="theme-color" content="#1f4a3a" />
+        <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32.png" />
+        <link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Hanken+Grotesk:wght@400;500;600;700&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <body>
+        <a class="skip" href="#prayer">Skip to prayer times</a>
+
+        <!-- ============ HEADER / NAV ============ -->
+        <header class="site-nav">
+            <div class="nav-wrap">
+                <a href="/" class="brand" aria-label="SEMRA — home">
+                    <img src="assets/images/semra-logo.png" alt="SEMRA logo" />
+                    <span class="brand-text"
+                        ><b>SEMRA</b><span>Suncity Estate · Abuja</span></span
+                    >
+                </a>
+                <nav aria-label="Primary">
+                    <ul class="nav-links" id="navLinks">
+                        <li><a href="/" class="current">Home</a></li>
+                        <li><a href="/about.html">About</a></li>
+                        <li><a href="#events">Events</a></li>
+                        <li><a href="/academy.html">Academy</a></li>
+                        <li><a href="#prayer">Prayer times</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                        <li class="nav-app-only">
+                            <a href="/app/">Open app</a>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="nav-actions">
+                    <a
+                        href="/app/"
+                        class="btn btn--ghost desktop-donate"
+                        style="border-color: var(--border)"
+                        >Open app</a
+                    >
+                    <a href="#donate" class="btn btn--primary desktop-donate"
+                        >Donate</a
+                    >
+                    <button
+                        class="menu-btn"
+                        id="menuBtn"
+                        aria-label="Open menu"
+                        aria-expanded="false"
+                        aria-controls="navLinks"
+                    >
+                        <svg
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            stroke-linecap="round"
+                        >
+                            <line x1="3" y1="7" x2="21" y2="7" />
+                            <line x1="3" y1="12" x2="21" y2="12" />
+                            <line x1="3" y1="17" x2="21" y2="17" />
+                        </svg>
+                    </button>
+                    <a href="#donate" class="btn btn--primary donate-mobile"
+                        >Donate</a
+                    >
+                </div>
+            </div>
+        </header>
+
+        <main id="top">
+            <span style="position: absolute; top: 0"></span>
+
+            <!-- ============ HERO ============ -->
+            <section class="hero wrap">
+                <div class="hero-grid">
+                    <div class="hero-copy">
+                        <p class="eyebrow">
+                            Assalāmu ʿalaikum — peace be upon you
+                        </p>
+                        <h1>
+                            A flourishing Muslim community,
+                            <em>rooted in worship, learning, and service.</em>
+                        </h1>
+                        <p class="lead">
+                            Suncity Estate Muslim Residents Association is the
+                            heart of Muslim life in our estate — daily &amp;
+                            Jumuʿah prayers, an Islamiyyah academy for children,
+                            and a community you can trust with your giving.
+                        </p>
+                        <div class="hero-ctas">
+                            <a href="#prayer" class="btn btn--primary"
+                                >View prayer times
+                                <svg
+                                    width="16"
+                                    height="16"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="1.9"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                >
+                                    <path d="M22 2 11 13" />
+                                    <path d="M22 2 15 22l-4-9-9-4Z" />
+                                </svg>
+                            </a>
+                            <a href="/app/" class="btn btn--ghost"
+                                >Open prayer app</a
+                            >
+                        </div>
+                        <div class="hero-meta">
+                            <span class="chip"
+                                ><span class="dot"></span>
+                                <span id="hijriHero">Today's date</span></span
+                            >
+                            <span class="chip"
+                                >Iqāmah in congregation, daily</span
+                            >
+                        </div>
+                    </div>
+                    <figure class="hero-figure">
+                        <img
+                            src="assets/images/mosque2.jpeg"
+                            alt="The SEMRA mosque in Suncity Estate, Abuja at golden hour"
+                            fetchpriority="high"
+                        />
+                        <figcaption class="hero-caption">
+                            <b>Suncity Estate Mosque</b>A house of worship for
+                            our community
+                        </figcaption>
+                    </figure>
+                </div>
+            </section>
+
+            <!-- ============ PRAYER TIMES ============ -->
+            <section class="prayer" id="prayer" style="scroll-margin-top: 24px">
+                <div class="prayer-inner">
+                    <div class="prayer-head">
+                        <div>
+                            <p class="eyebrow">Ṣalāh schedule</p>
+                            <h2>Today's prayer times</h2>
+                        </div>
+                        <div class="hijri" id="hijriFull">
+                            <b id="hijriText">—</b><br /><span id="gregText"
+                                >—</span
+                            >
+                            · Abuja
+                        </div>
+                    </div>
+
+                    <div class="next-bar">
+                        <div>
+                            <div class="label">Next prayer</div>
+                            <div class="next-name" id="nextName">
+                                Iqāmah at <span id="nextTime">—</span>
+                            </div>
+                        </div>
+                        <div class="countdown" aria-live="off">
+                            <span id="cdTime">--:--:--</span
+                            ><small>Begins in</small>
+                        </div>
+                    </div>
+
+                    <div class="prayer-grid" id="prayerGrid" role="list">
+                        <!-- injected by JS -->
+                    </div>
+
+                    <div class="jumuah-card">
+                        <svg
+                            class="j-ico"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.7"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        >
+                            <path d="M4 20h16" />
+                            <path d="M6 20V8l6-4 6 4v12" />
+                            <path d="M12 6v14" />
+                            <path d="M9 11h6" />
+                        </svg>
+                        <div class="j-text">
+                            <b>Jumuʿah — Friday prayer</b
+                            ><span id="jumuahSub"
+                                >Weekly communal Khutbah &amp; prayer</span
+                            >
+                        </div>
+                        <div class="j-time" id="jumuahTime">—</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============ WELCOME / ORIGIN ============ -->
+            <section
+                class="welcome wrap"
+                id="welcome"
+                style="scroll-margin-top: calc(var(--header-h) + 12px)"
+            >
+                <div class="welcome-grid">
+                    <div class="welcome-img">
+                        <img
+                            src="assets/images/mosque1.jpeg"
+                            alt="Worshippers gathering for prayer at the SEMRA mosque"
+                        />
+                    </div>
+                    <div class="welcome-copy">
+                        <p class="welcome-salam">السَّلَامُ عَلَيْكُمْ</p>
+                        <p class="eyebrow">Our story</p>
+                        <h2>From a car-park lot to a community.</h2>
+                        <p class="intro">
+                            SEMRA began as a small gathering of a few Muslim
+                            residents in Suncity Estate, who spread their prayer
+                            mats and observed ṣalāh in a car-park lot on Pomona
+                            Street, donated by a brother among us.
+                        </p>
+                        <p>
+                            From those humble beginnings, we have grown into a
+                            thriving community — with a proper mosque, a
+                            children's Islamiyyah academy, and a welfare
+                            brotherhood serving families across the estate.
+                        </p>
+                        <p style="margin-top: 8px">
+                            <a class="link-arrow" href="/about.html"
+                                >Read the full history
+                                <svg
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                >
+                                    <path d="M5 12h14" />
+                                    <path d="m12 5 7 7-7 7" /></svg
+                            ></a>
+                        </p>
+                        <ul class="welcome-values">
+                            <li>
+                                <svg
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                >
+                                    <path d="M20 6 9 17l-5-5" />
+                                </svg>
+                                Congregation-led, not corporate
+                            </li>
+                            <li>
+                                <svg
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                >
+                                    <path d="M20 6 9 17l-5-5" />
+                                </svg>
+                                Trusted with your giving
+                            </li>
+                            <li>
+                                <svg
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                >
+                                    <path d="M20 6 9 17l-5-5" />
+                                </svg>
+                                Open to every Muslim family
+                            </li>
+                            <li>
+                                <svg
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                >
+                                    <path d="M20 6 9 17l-5-5" />
+                                </svg>
+                                Learning for children &amp; elders
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============ SERVICES ============ -->
+            <section
+                class="services"
+                id="services"
+                style="scroll-margin-top: calc(var(--header-h) + 12px)"
+            >
+                <div class="section-head">
+                    <p class="eyebrow">What we do</p>
+                    <h2>A complete community life, grounded in faith.</h2>
+                    <p class="lead">
+                        Six arms of service — from the five daily prayers to
+                        caring for families in hardship. Each is run by trusted
+                        volunteers and overseen by the association's elders.
+                    </p>
+                </div>
+                <div class="services-grid wrap" style="padding-bottom: 0">
+                    <article class="svc svc--feature">
+                        <svg
+                            class="s-ico"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.7"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        >
+                            <path d="M12 3v18" />
+                            <path d="M5 8h14l-2 13H7L5 8Z" />
+                        </svg>
+                        <h3>Daily &amp; Jumuʿah Ṣalāh</h3>
+                        <p>
+                            All five daily prayers with iqāmah in congregation,
+                            and a weekly Friday Khutbah. The masjid is open from
+                            Fajr to Isha, every day of the year.
+                        </p>
+                        <div class="services-feature">
+                            Iqāmah in congregation, daily
+                        </div>
+                    </article>
+                    <article class="svc">
+                        <svg
+                            class="s-ico"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.7"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        >
+                            <path d="M4 19V5l8-2 8 2v14" />
+                            <path d="M4 9h16" />
+                            <path d="M12 3v16" />
+                        </svg>
+                        <h3><a href="/academy.html" class="svc-link">Islamiyyah Academy</a></h3>
+                        <p>
+                            Qurʾan, Tajwīd, and Islamic studies for children —
+                            weekends and after-school, taught by qualified
+                            ʿulamāʾ.
+                        </p>
+                    </article>
+                    <article class="svc">
+                        <svg
+                            class="s-ico"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.7"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        >
+                            <path d="M8 2v4" />
+                            <path d="M16 2v4" />
+                            <path
+                                d="M5 9h14v11a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V9Z"
+                            />
+                            <path d="M2 12l3-1" />
+                            <path d="M22 12l-3-1" />
+                        </svg>
+                        <h3>Community &amp; Eid Events</h3>
+                        <p>
+                            Eid prayers, family fun days, iftār during Ramaḍān,
+                            and seasonal lectures that bring the estate
+                            together.
+                        </p>
+                    </article>
+                    <article class="svc">
+                        <svg
+                            class="s-ico"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.7"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        >
+                            <path
+                                d="M12 3a7 7 0 0 0-7 7c0 3 2 5 2 7h10c0-2 2-4 2-7a7 7 0 0 0-7-7Z"
+                            />
+                            <path d="M9 21h6" />
+                        </svg>
+                        <h3>Daʿwah &amp; Qur'an Circles</h3>
+                        <p>
+                            Weekly halaqah, tafsīr, and memorisation circles for
+                            all ages — building knowledge, one verse at a time.
+                        </p>
+                    </article>
+                    <article class="svc">
+                        <svg
+                            class="s-ico"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.7"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        >
+                            <path
+                                d="M12 21s-7-4.5-9-9a4.5 4.5 0 0 1 9-2 4.5 4.5 0 0 1 9 2c-2 4.5-9 9-9 9Z"
+                            />
+                        </svg>
+                        <h3>Sadaqah &amp; Welfare</h3>
+                        <p>
+                            Zakat collection and transparent distribution to
+                            families in need across the estate — audited and
+                            disclosed.
+                        </p>
+                    </article>
+                    <article class="svc">
+                        <svg
+                            class="s-ico"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.7"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        >
+                            <path d="M4 20h16" />
+                            <path
+                                d="M12 4a2 2 0 0 0-2 2v3H7v2h3v9h4v-9h3V9h-3V6a2 2 0 0 0-2-2Z"
+                            />
+                        </svg>
+                        <h3>Janāzah Support</h3>
+                        <p>
+                            Ghusl, kafan, funeral arrangements, and bereavement
+                            care for any Muslim family in Suncity estate,
+                            whenever the need arises.
+                        </p>
+                    </article>
+                </div>
+                <div
+                    class="wrap"
+                    style="padding-top: 20px; padding-bottom: var(--section-py)"
+                >
+                    <a class="link-arrow" href="#events"
+                        >See what's happening this season
+                        <svg
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        >
+                            <path d="M5 12h14" />
+                            <path d="m12 5 7 7-7 7" /></svg
+                    ></a>
+                </div>
+            </section>
+
+            <!-- ============ EVENTS STRIP ============ -->
+            <section
+                class="events-strip wrap"
+                id="events"
+                style="scroll-margin-top: calc(var(--header-h) + 12px)"
+            >
+                <div class="events-head">
+                    <div>
+                        <p class="eyebrow">Upcoming</p>
+                        <h2>Gatherings &amp; programmes ahead</h2>
+                    </div>
+                    <a class="link-arrow" href="/events.html"
+                        >All events
+                        <svg
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        >
+                            <path d="M5 12h14" />
+                            <path d="m12 5 7 7-7 7" /></svg
+                    ></a>
+                </div>
+                <div class="events-grid" id="homeEventsGrid">
+                    <p class="events-empty">Loading events…</p>
+                </div>
+            </section>
+
+            <!-- ============ DONATION ============ -->
+            <section
+                class="donate"
+                id="donate"
+                style="scroll-margin-top: calc(var(--header-h) + 12px)"
+            >
+                <div class="donate-wrap">
+                    <div class="donate-intro">
+                        <p class="eyebrow">Give sadaqah</p>
+                        <h2>Support the mosque you trust.</h2>
+                        <p>
+                            Every naira funds the mosque, the academy, and
+                            welfare for families in the estate — nothing else.
+                            Account with
+                            <b style="color: var(--accent-ink)">TAJ Bank</b>, a
+                            non-interest, Sharia-compliant bank.
+                        </p>
+                        <div class="donate-img">
+                            <img
+                                src="assets/images/donation.jpg"
+                                alt="A community member giving sadaqah"
+                            />
+                        </div>
+                        <div class="trust">
+                            <div class="t-row">
+                                <svg
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                >
+                                    <path
+                                        d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"
+                                    />
+                                    <path d="m9 12 2 2 4-4" />
+                                </svg>
+                                Registered community association, Suncity Estate
+                            </div>
+                            <div class="t-row">
+                                <svg
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                >
+                                    <path
+                                        d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"
+                                    />
+                                    <path d="m9 12 2 2 4-4" />
+                                </svg>
+                                TAJ Bank — non-interest, Sharia-compliant
+                            </div>
+                            <div class="t-row">
+                                <svg
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                >
+                                    <path
+                                        d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"
+                                    />
+                                    <path d="m9 12 2 2 4-4" />
+                                </svg>
+                                100% of gifts fund worship, learning &amp;
+                                welfare
+                            </div>
+                        </div>
+                        <div class="bank-detail">
+                            <div class="b-label">Direct bank transfer</div>
+                            <div class="b-name">TAJ Bank</div>
+                            <div
+                                style="
+                                    font-size: 0.84rem;
+                                    color: var(--accent-ink-muted);
+                                "
+                            >
+                                SUNCITY ESTATE MUSLIM RESIDENTS ASSOCIATION
+                            </div>
+                            <div class="b-acct">
+                                <code id="bankAcct">0002923259</code>
+                                <button
+                                    class="copy-btn"
+                                    id="copyAcct"
+                                    type="button"
+                                    aria-label="Copy account number"
+                                >
+                                    <svg
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        stroke-width="1.8"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                    >
+                                        <rect
+                                            x="9"
+                                            y="9"
+                                            width="11"
+                                            height="11"
+                                            rx="2"
+                                        />
+                                        <path d="M5 15V5a2 2 0 0 1 2-2h10" />
+                                    </svg>
+                                    <span id="copyLabel">Copy</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="donate-panel">
+                        <div class="steps" id="steps">
+                            <!-- step indicators injected -->
+                        </div>
+
+                        <!-- STEP 1 -->
+                        <div class="step-panel" id="step1">
+                            <div class="panel-q">
+                                How much would you like to give?
+                            </div>
+                            <div class="panel-sub">
+                                Choose an amount (₦) or enter your own. You can
+                                give once or pledge monthly.
+                            </div>
+                            <div class="amounts" id="amounts">
+                                <button
+                                    class="amount-btn"
+                                    type="button"
+                                    data-amt="5000"
+                                >
+                                    ₦5,000
+                                </button>
+                                <button
+                                    class="amount-btn sel"
+                                    type="button"
+                                    data-amt="10000"
+                                >
+                                    ₦10,000
+                                </button>
+                                <button
+                                    class="amount-btn"
+                                    type="button"
+                                    data-amt="25000"
+                                >
+                                    ₦25,000
+                                </button>
+                                <button
+                                    class="amount-btn"
+                                    type="button"
+                                    data-amt="50000"
+                                >
+                                    ₦50,000
+                                </button>
+                            </div>
+                            <div class="custom-amt">
+                                <span>₦</span
+                                ><input
+                                    id="customAmt"
+                                    type="number"
+                                    inputmode="numeric"
+                                    min="100"
+                                    placeholder="Custom amount"
+                                    aria-label="Custom amount in naira"
+                                />
+                            </div>
+                            <div class="freq" id="freq">
+                                <button
+                                    class="freq-btn sel"
+                                    type="button"
+                                    data-freq="one"
+                                >
+                                    One-time<small>Single gift</small>
+                                </button>
+                                <button
+                                    class="freq-btn"
+                                    type="button"
+                                    data-freq="monthly"
+                                >
+                                    Monthly pledge<small>Recurring</small>
+                                </button>
+                            </div>
+                            <div
+                                class="methods"
+                                id="methods"
+                                role="radiogroup"
+                                aria-label="Payment method"
+                            >
+                                <button
+                                    class="method sel"
+                                    type="button"
+                                    data-method="paystack"
+                                    role="radio"
+                                    aria-checked="true"
+                                >
+                                    <svg
+                                        class="m-ico"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        stroke-width="1.7"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                    >
+                                        <rect
+                                            x="2"
+                                            y="5"
+                                            width="20"
+                                            height="14"
+                                            rx="2"
+                                        />
+                                        <path d="M2 10h20" />
+                                    </svg>
+                                    <b>Paystack</b><small>Card · USSD</small>
+                                </button>
+                                <button
+                                    class="method"
+                                    type="button"
+                                    data-method="transfer"
+                                    role="radio"
+                                    aria-checked="false"
+                                >
+                                    <svg
+                                        class="m-ico"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        stroke-width="1.7"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                    >
+                                        <path d="M3 10h14" />
+                                        <path d="m13 6 4 4-4 4" />
+                                        <path d="M21 6v12" />
+                                    </svg>
+                                    <b>Bank transfer</b><small>TAJ Bank</small>
+                                </button>
+                                <button
+                                    class="method"
+                                    type="button"
+                                    data-method="pledge"
+                                    role="radio"
+                                    aria-checked="false"
+                                >
+                                    <svg
+                                        class="m-ico"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        stroke-width="1.7"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                    >
+                                        <path d="M12 3v3" />
+                                        <path d="M12 18v3" />
+                                        <path d="M5 12H2" />
+                                        <path d="M22 12h-3" />
+                                        <path
+                                            d="M12 8a4 4 0 0 0 0 8 4 4 0 0 0 0-8Z"
+                                        />
+                                    </svg>
+                                    <b>Pledge</b><small>Track monthly</small>
+                                </button>
+                            </div>
+                            <div class="panel-nav">
+                                <button
+                                    class="btn btn--primary btn--block"
+                                    id="to2"
+                                    type="button"
+                                >
+                                    Continue →
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- STEP 2 -->
+                        <div class="step-panel" id="step2" hidden>
+                            <div class="panel-q">Your details</div>
+                            <div class="panel-sub" id="step2Sub">
+                                So we can confirm and thank you.
+                            </div>
+                            <div class="field">
+                                <label for="donorName">Full name</label
+                                ><input
+                                    id="donorName"
+                                    type="text"
+                                    autocomplete="name"
+                                />
+                            </div>
+                            <div class="field">
+                                <label for="donorEmail">Email address</label
+                                ><input
+                                    id="donorEmail"
+                                    type="email"
+                                    autocomplete="email"
+                                />
+                            </div>
+                            <div class="field">
+                                <label for="donorPhone"
+                                    >Phone
+                                    <span
+                                        style="
+                                            font-weight: 500;
+                                            text-transform: none;
+                                            letter-spacing: 0;
+                                            color: var(--muted);
+                                        "
+                                        >(optional)</span
+                                    ></label
+                                ><input
+                                    id="donorPhone"
+                                    type="tel"
+                                    autocomplete="tel"
+                                />
+                            </div>
+                            <div class="panel-nav">
+                                <button
+                                    class="btn btn--ghost"
+                                    id="back2"
+                                    type="button"
+                                >
+                                    ← Back
+                                </button>
+                                <button
+                                    class="btn btn--primary"
+                                    id="to3"
+                                    type="button"
+                                    style="flex: 1"
+                                >
+                                    Review gift →
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- STEP 3 -->
+                        <div class="step-panel" id="step3" hidden>
+                            <div class="confirm-mark">
+                                <svg
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2.2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                >
+                                    <path d="M20 6 9 17l-5-5" />
+                                </svg>
+                            </div>
+                            <div class="jazak">Jazāk Allāhu Khayran</div>
+                            <div class="confirm-note">
+                                Here's a summary of your gift. Complete your
+                                donation using your chosen method.
+                            </div>
+                            <dl class="summary" id="summary"></dl>
+                            <div
+                                id="methodNote"
+                                class="confirm-note"
+                                style="margin: 0 0 6px; text-align: left"
+                            ></div>
+                            <div class="panel-nav">
+                                <button
+                                    class="btn btn--ghost"
+                                    id="back3"
+                                    type="button"
+                                >
+                                    ← Edit
+                                </button>
+                                <button
+                                    class="btn btn--primary"
+                                    id="finishBtn"
+                                    type="button"
+                                    style="flex: 1"
+                                >
+                                    Complete donation
+                                </button>
+                            </div>
+                            <div class="what-funds" id="fundsNote"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- ============ FOOTER ============ -->
+        <footer class="site-foot">
+            <div class="foot-grid">
+                <div class="foot-brand">
+                    <a
+                        class="brand"
+                        href="#top"
+                        aria-label="SEMRA — home"
+                        style="gap: 12px"
+                    >
+                        <img
+                            src="assets/images/semra-logo.png"
+                            alt="SEMRA logo"
+                        />
+                        <span class="brand-text"
+                            ><b>SEMRA</b
+                            ><span>Suncity Estate · Abuja</span></span
+                        >
+                    </a>
+                    <p>
+                        A renowned Centre for Islamic excellence and broad
+                        teaching — serving Muslim families in Suncity Estate,
+                        Abuja.
+                    </p>
+                </div>
+                <div class="foot-col">
+                    <h4>Worship</h4>
+                    <ul class="foot-contact">
+                        <li><a href="#prayer">Daily &amp; Jumuʿah Ṣalāh</a></li>
+                        <li><a href="/academy.html">Islamiyyah academy</a></li>
+                        <li><a href="#events">Community events</a></li>
+                        <li><a href="#donate">Sadaqah &amp; welfare</a></li>
+                    </ul>
+                </div>
+                <div
+                    class="foot-col"
+                    id="contact"
+                    style="scroll-margin-top: calc(var(--header-h) + 12px)"
+                >
+                    <h4>Visit &amp; reach us</h4>
+                    <ul class="foot-contact">
+                        <li>
+                            <svg
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.7"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            >
+                                <path
+                                    d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"
+                                />
+                                <circle cx="12" cy="10" r="3" />
+                            </svg>
+                            No. 2, Niger Crescent, off Main Street, Suncity
+                            Estate, Abuja
+                        </li>
+                        <li>
+                            <svg
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.7"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            >
+                                <path
+                                    d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.6A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.7a2 2 0 0 1-.5 2.1L8 9.6a16 16 0 0 0 6 6l1.1-1.1a2 2 0 0 1 2.1-.5c.9.3 1.8.5 2.7.6a2 2 0 0 1 1.7 2Z"
+                                />
+                            </svg>
+                            <a href="tel:+2348078785032">+234 807 878 5032</a>
+                        </li>
+                        <li>
+                            <svg
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.7"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            >
+                                <rect
+                                    x="2"
+                                    y="4"
+                                    width="20"
+                                    height="16"
+                                    rx="2"
+                                />
+                                <path d="m2 7 10 6 10-6" />
+                            </svg>
+                            <a href="mailto:semra.suncity@gmail.com"
+                                >semra.suncity@gmail.com</a
+                            >
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="foot-bottom">
+                <span
+                    >© <span id="year">2026</span> Suncity Estate Muslim
+                    Residents Association · TAJ Bank · 0002923259</span
+                >
+                <span class="bismillah"
+                    >بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</span
+                >
+            </div>
+        </footer>
+
+        <script src="site.js" defer></script>
+        <script src="script.js" defer></script>
+    </body>
+</html>

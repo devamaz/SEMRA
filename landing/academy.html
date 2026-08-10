@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Islamiyyah Academy — SEMRA | Suncity Estate, Abuja</title>
+    <meta
+      name="description"
+      content="The SEMRA Islamiyyah Academy: Qurʾan, Tajwīd, and Islamic studies for children and female adults in Suncity Estate, Abuja. Session, term dates, and class times."
+    />
+    <meta name="theme-color" content="#1f4a3a" />
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32.png" />
+    <link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Hanken+Grotesk:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <a class="skip" href="#academy-main">Skip to academy details</a>
+
+    <header class="site-nav">
+      <div class="nav-wrap">
+        <a href="/" class="brand" aria-label="SEMRA — home">
+          <img src="assets/images/semra-logo.png" alt="SEMRA logo" />
+          <span class="brand-text"
+            ><b>SEMRA</b><span>Suncity Estate · Abuja</span></span
+          >
+        </a>
+        <nav aria-label="Primary">
+          <ul class="nav-links" id="navLinks">
+            <li><a href="/">Home</a></li>
+            <li><a href="/about.html">About</a></li>
+            <li><a href="/events.html">Events</a></li>
+            <li><a href="/academy.html" class="current">Academy</a></li>
+            <li><a href="/#prayer">Prayer times</a></li>
+            <li><a href="/#contact">Contact</a></li>
+            <li class="nav-app-only"><a href="/app/">Open app</a></li>
+          </ul>
+        </nav>
+        <div class="nav-actions">
+          <a
+            href="/app/"
+            class="btn btn--ghost desktop-donate"
+            style="border-color: var(--border)"
+            >Open app</a
+          >
+          <a href="/#donate" class="btn btn--primary desktop-donate">Donate</a>
+          <button
+            class="menu-btn"
+            id="menuBtn"
+            aria-label="Open menu"
+            aria-expanded="false"
+            aria-controls="navLinks"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+            >
+              <line x1="3" y1="7" x2="21" y2="7" />
+              <line x1="3" y1="12" x2="21" y2="12" />
+              <line x1="3" y1="17" x2="21" y2="17" />
+            </svg>
+          </button>
+          <a href="/#donate" class="btn btn--primary donate-mobile">Donate</a>
+        </div>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="page-hero">
+        <div class="wrap page-hero-grid">
+          <div>
+            <p class="eyebrow">Academy</p>
+            <h1>Islamiyyah Academy</h1>
+            <p class="lead">
+              Qurʾan, Tajwīd, and Islamic studies for children and female
+              adults — taught by qualified ʿulamāʾ at Suncity Estate Mosque.
+            </p>
+            <div class="hero-ctas" style="margin-top: 24px">
+              <a class="btn btn--primary" href="#enrol">
+                New student · Enrol for this term
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.9"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M12 3v12" />
+                  <path d="m7 10 5 5 5-5" />
+                  <path d="M5 21h14" />
+                </svg>
+              </a>
+              <a class="btn btn--ghost" href="#schedule">View days &amp; times</a>
+            </div>
+          </div>
+          <aside class="page-hero-meta" aria-label="Academy term summary">
+            <div class="meta-row">
+              <div class="meta-label">Session</div>
+              <div class="meta-value" id="acadSession" style="font-size: 1.15rem">
+                Loading…
+              </div>
+            </div>
+            <div class="meta-row">
+              <div class="meta-label">Term</div>
+              <div class="meta-value" id="acadTerm" style="font-size: 1.15rem">
+                —
+              </div>
+            </div>
+            <div class="meta-row">
+              <div class="meta-label">First term starts</div>
+              <div class="meta-value" id="acadStart" style="font-size: 1.05rem">
+                —
+              </div>
+            </div>
+            <div class="meta-row">
+              <div class="meta-label">Venue</div>
+              <div class="meta-value" style="font-size: 1.05rem">
+                Academy hall · No. 2 Niger Street, Suncity Estate
+              </div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section
+        class="events-page wrap"
+        id="academy-main"
+        style="scroll-margin-top: calc(var(--header-h) + 12px)"
+      >
+        <div class="events-head" style="margin-bottom: 28px">
+          <div>
+            <p class="eyebrow">Days &amp; times</p>
+            <h2 id="schedule" style="scroll-margin-top: calc(var(--header-h) + 12px)">
+              Class schedule
+            </h2>
+          </div>
+        </div>
+        <div class="events-grid" id="acadClasses">
+          <p class="events-empty">Loading academy schedule…</p>
+        </div>
+      </section>
+
+      <section
+        class="about-cta"
+        id="enrol"
+        style="scroll-margin-top: calc(var(--header-h) + 12px)"
+      >
+        <div class="wrap">
+          <div class="about-cta-grid">
+            <div>
+              <p class="eyebrow">New students welcome</p>
+              <h2>Enrol for this term</h2>
+              <p>
+                Download the registration form, complete it, and return it to
+                the academy office. Places are limited — secure a seat for the
+                new term today.
+              </p>
+            </div>
+            <div class="about-cta-actions">
+              <a
+                class="btn btn--primary"
+                href="/islamiyya%20form%20universal.pdf"
+                download
+              >
+                Children's registration form
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.9"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                  <path d="m7 10 5 5 5-5" />
+                  <path d="M12 15V3" />
+                </svg>
+              </a>
+              <a
+                class="btn btn--outline"
+                href="/islamiyya%20form%20Adult.pdf"
+                download
+              >
+                Adult registration form
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.9"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                  <path d="m7 10 5 5 5-5" />
+                  <path d="M12 15V3" />
+                </svg>
+              </a>
+              <a class="btn btn--ghost" href="/#contact">Contact the academy</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-foot">
+      <div class="foot-grid">
+        <div class="foot-brand">
+          <a class="brand" href="/" aria-label="SEMRA — home" style="gap: 12px">
+            <img src="assets/images/semra-logo.png" alt="SEMRA logo" />
+            <span class="brand-text"
+              ><b>SEMRA</b><span>Suncity Estate · Abuja</span></span
+            >
+          </a>
+          <p>
+            A renowned Centre for Islamic excellence and broad teaching —
+            serving Muslim families in Suncity Estate, Abuja.
+          </p>
+        </div>
+        <div class="foot-col">
+          <h4>Worship</h4>
+          <ul class="foot-contact">
+            <li><a href="/#prayer">Daily &amp; Jumuʿah Ṣalāh</a></li>
+            <li><a href="/academy.html">Islamiyyah academy</a></li>
+            <li><a href="/events.html">Community events</a></li>
+            <li><a href="/#donate">Sadaqah &amp; welfare</a></li>
+          </ul>
+        </div>
+        <div class="foot-col" id="contact">
+          <h4>Visit &amp; reach us</h4>
+          <ul class="foot-contact">
+            <li>
+              No. 2, Niger Crescent, off Main Street, Suncity Estate, Abuja
+            </li>
+            <li>
+              <a href="tel:+2348078785032">+234 807 878 5032</a>
+            </li>
+            <li>
+              <a href="mailto:semra.suncity@gmail.com">semra.suncity@gmail.com</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="foot-bottom">
+        <span
+          >© <span id="year">2026</span> Suncity Estate Muslim Residents
+          Association · TAJ Bank · 0002923259</span
+        >
+        <span class="bismillah">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</span>
+      </div>
+    </footer>
+
+    <script src="site.js" defer></script>
+    <script src="academy.js" defer></script>
+  </body>
+</html>
