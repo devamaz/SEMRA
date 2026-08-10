@@ -351,11 +351,17 @@ async function loadHomeEvents() {
     const events = await res.json();
     const today = homeTodayISO();
     const upcoming = events.filter((e) => e.date >= today).slice(0, 3);
-    if (!upcoming.length) {
-      grid.innerHTML = '<p class="events-empty">No upcoming events yet. <a href="/events.html">See all programmes</a></p>';
+    if (upcoming.length) {
+      grid.innerHTML = upcoming.map((e, i) => homeEventCard(e, i)).join('');
       return;
     }
-    grid.innerHTML = upcoming.map((e, i) => homeEventCard(e, i)).join('');
+    // No upcoming events — surface the most recent past ones instead
+    const recent = events.filter((e) => e.date < today).slice(-3).reverse();
+    if (recent.length) {
+      grid.innerHTML = recent.map((e, i) => homeEventCard(e, i)).join('');
+      return;
+    }
+    grid.innerHTML = '<p class="events-empty">No upcoming events yet. <a href="/events.html">See all programmes</a></p>';
   } catch (err) {
     grid.innerHTML = '<p class="events-empty">Could not load events. <a href="/events.html">Try the events page</a></p>';
   }
