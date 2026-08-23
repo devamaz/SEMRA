@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Videos — SEMRA | Suncity Estate, Abuja</title>
+    <meta
+      name="description"
+      content="The latest video and recent recordings from SEMRA — Jumu'ah khutbahs, Taraweeh, Tahajjud, and khatm at Suncity Estate Mosque, Abuja."
+    />
+    <meta name="theme-color" content="#1f4a3a" />
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32.png" />
+    <link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Hanken+Grotesk:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <a class="skip" href="#videos-main">Skip to videos</a>
+
+    <header class="site-nav">
+      <div class="nav-wrap">
+        <a href="/" class="brand" aria-label="SEMRA — home">
+          <img src="assets/images/semra-logo.png" alt="SEMRA logo" />
+          <span class="brand-text"
+            ><b>SEMRA</b><span>Suncity Estate · Abuja</span></span
+          >
+        </a>
+        <nav aria-label="Primary">
+          <ul class="nav-links" id="navLinks">
+            <li><a href="/">Home</a></li>
+            <li><a href="/about.html">About</a></li>
+            <li><a href="/events.html">Events</a></li>
+            <li><a href="/videos.html" class="current">Videos</a></li>
+            <li><a href="/academy.html">Academy</a></li>
+            <li><a href="/#prayer">Prayer times</a></li>
+            <li><a href="/#contact">Contact</a></li>
+            <li class="nav-app-only"><a href="/app/">Open app</a></li>
+          </ul>
+        </nav>
+        <div class="nav-actions">
+          <a
+            href="/app/"
+            class="btn btn--ghost desktop-donate"
+            style="border-color: var(--border)"
+            >Open app</a
+          >
+          <a href="/#donate" class="btn btn--primary desktop-donate">Donate</a>
+          <button
+            class="menu-btn"
+            id="menuBtn"
+            aria-label="Open menu"
+            aria-expanded="false"
+            aria-controls="navLinks"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+            >
+              <line x1="3" y1="7" x2="21" y2="7" />
+              <line x1="3" y1="12" x2="21" y2="12" />
+              <line x1="3" y1="17" x2="21" y2="17" />
+            </svg>
+          </button>
+          <a href="/#donate" class="btn btn--primary donate-mobile">Donate</a>
+        </div>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="page-hero">
+        <div class="wrap page-hero-grid">
+          <div>
+            <p class="eyebrow">Recordings</p>
+            <h1>Latest video &amp; recordings</h1>
+            <p class="lead">
+              Khutbahs, Taraweeh, Tahajjud, and khatm from Suncity Estate
+              Mosque. The newest upload always appears here automatically.
+            </p>
+          </div>
+          <aside class="page-hero-meta" aria-label="Videos summary">
+            <div class="meta-row">
+              <div class="meta-label">Channel</div>
+              <div class="meta-value" style="font-size: 1.05rem" id="videosStatus">
+                Loading…
+              </div>
+            </div>
+            <div class="meta-row">
+              <div class="meta-label">New uploads</div>
+              <div class="meta-value" style="font-size: 1.05rem">
+                Appear here automatically
+              </div>
+            </div>
+            <div class="meta-row">
+              <div class="meta-label">Watch on YouTube</div>
+              <div class="meta-value" style="font-size: 1.05rem">
+                <a
+                  href="https://www.youtube.com/@semra-suncity"
+                  id="channelLink"
+                  target="_blank"
+                  rel="noopener"
+                  >@semra-suncity</a
+                >
+              </div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section
+        class="videos-page wrap"
+        id="videos-main"
+        style="scroll-margin-top: calc(var(--header-h) + 12px)"
+      >
+        <div class="featured-video" id="featuredVideo">
+          <p class="videos-empty">Loading the latest video…</p>
+        </div>
+
+        <div class="events-head" style="margin-bottom: 28px">
+          <div>
+            <p class="eyebrow">Earlier</p>
+            <h2>Recent uploads</h2>
+          </div>
+        </div>
+        <div class="vid-grid" id="recentGrid">
+          <p class="videos-empty">Loading recent uploads…</p>
+        </div>
+      </section>
+
+      <section class="about-cta">
+        <div class="wrap">
+          <div class="about-cta-grid">
+            <div>
+              <h2>Never miss an upload</h2>
+              <p>
+                All recordings live on the SEMRA YouTube channel. Subscribe
+                there to be notified when the committee publishes a new
+                khutbah or Qur'an programme.
+              </p>
+            </div>
+            <div class="about-cta-actions">
+              <a
+                class="btn btn--primary"
+                href="https://www.youtube.com/@semra-suncity"
+                target="_blank"
+                rel="noopener"
+                >Visit our channel</a
+              >
+              <a class="btn btn--ghost" href="/events.html">Events</a>
+              <a class="btn btn--outline" href="/">Back to home</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-foot">
+      <div class="foot-grid">
+        <div class="foot-brand">
+          <a class="brand" href="/" aria-label="SEMRA — home" style="gap: 12px">
+            <img src="assets/images/semra-logo.png" alt="SEMRA logo" />
+            <span class="brand-text"
+              ><b>SEMRA</b><span>Suncity Estate · Abuja</span></span
+            >
+          </a>
+          <p>
+            A renowned Centre for Islamic excellence and broad teaching —
+            serving Muslim families in Suncity Estate, Abuja.
+          </p>
+        </div>
+        <div class="foot-col">
+          <h4>Worship</h4>
+          <ul class="foot-contact">
+            <li><a href="/#prayer">Daily &amp; Jumuʿah Ṣalāh</a></li>
+            <li><a href="/academy.html">Islamiyyah academy</a></li>
+            <li><a href="/events.html">Community events</a></li>
+            <li><a href="/videos.html">Latest videos</a></li>
+            <li><a href="/#donate">Sadaqah &amp; welfare</a></li>
+          </ul>
+        </div>
+        <div class="foot-col" id="contact">
+          <h4>Visit &amp; reach us</h4>
+          <ul class="foot-contact">
+            <li>
+              No. 2, Niger Crescent, off Main Street, Suncity Estate, Abuja
+            </li>
+            <li>
+              <a href="tel:+2348078785032">+234 807 878 5032</a>
+            </li>
+            <li>
+              <a href="mailto:semra.suncity@gmail.com">semra.suncity@gmail.com</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="foot-bottom">
+        <span
+          >© <span id="year">2026</span> Suncity Estate Muslim Residents
+          Association · TAJ Bank · 0002923259</span
+        >
+        <span class="bismillah">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</span>
+      </div>
+    </footer>
+
+    <script src="site.js" defer></script>
+    <script src="videos.js" defer></script>
+  </body>
+</html>
