@@ -1,4 +1,6 @@
 /* ============ ICON DEFINITIONS (monoline, 1.7px) ============ */
+import { formatHijriDate } from '../shared/hijri.js';
+
 const ICONS = {
   fajr:'<path d="M12 3v3"/><path d="M3 13a9 9 0 0 1 18 0"/><path d="M2 18h20"/><circle cx="12" cy="13" r="4"/>',
   dhuhr:'<circle cx="12" cy="12" r="4"/><path d="M12 2v3"/><path d="M12 19v3"/><path d="M2 12h3"/><path d="M19 12h3"/><path d="m4.9 4.9 2.1 2.1"/><path d="m17 17 2.1 2.1"/><path d="m19.1 4.9-2.1 2.1"/><path d="m7 7-2.1 2.1"/>',
@@ -110,11 +112,14 @@ function updatePrayer(){
 
 function setDates(){
   try{
-    const hijri = new Intl.DateTimeFormat('en-u-ca-islamic-umalqura',{day:'numeric',month:'long',year:'numeric'}).format(new Date());
+    // Umm al-Qura computed locally (shared/hijri.js) — Intl renders the
+    // Islamic calendar wrong on Android WebView and duplicates the era on
+    // modern ICU, so we never rely on it here.
+    const hijri = formatHijriDate(new Date()) ?? '—';
     const greg  = new Intl.DateTimeFormat('en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric'}).format(new Date());
-    document.getElementById('hijriText').textContent = hijri + ' AH';
+    document.getElementById('hijriText').textContent = hijri;
     document.getElementById('gregText').textContent = greg;
-    document.getElementById('hijriHero').textContent = hijri + ' AH';
+    document.getElementById('hijriHero').textContent = hijri;
   }catch(e){
     document.getElementById('hijriText').textContent = '—';
     document.getElementById('gregText').textContent = new Date().toDateString();
@@ -148,7 +153,7 @@ if (donateRoot) {
     box.innerHTML = stepNames.map((n, i) => {
       const idx = i + 1;
       const cls = idx === D.step ? 'active' : (idx < D.step ? 'done' : '');
-      return `<div class="step ${cls}"><span class="step-num">${idx}</span>${n}</div>` + (i < 2 ? '<div class="step-bar"></div>' : '');
+      return `<div class="step ${cls}"><span class="step-num">${idx}</span><span class="step-label">${n}</span></div>` + (i < 2 ? '<div class="step-bar"></div>' : '');
     }).join('');
   }
 

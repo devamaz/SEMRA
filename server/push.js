@@ -25,6 +25,18 @@ function toPushSubscription(sub) {
 }
 
 /**
+ * Human-readable one-liner for a web-push failure (status + FCM body).
+ *
+ * A 403 body often names the exact cause (e.g. a SenderId / VAPID key
+ * mismatch), so it should be visible in server logs.
+ */
+export function describePushError(err) {
+  const status = err?.statusCode ? `HTTP ${err.statusCode}` : err?.message || 'unknown error';
+  const body = err?.body ? ` — ${String(err.body).trim().slice(0, 160)}` : '';
+  return `${status}${body}`;
+}
+
+/**
  * Shared send routine — one notification to one Subscriber.
  *
  * Resolves with `{ expired: true, endpoint }` when the subscription is no
@@ -89,6 +101,16 @@ export async function pushAll({ title, body, url = '/app/', type = 'committee' }
 
   const sent = results.filter((r) => r.status === 'fulfilled' && !r.value?.expired).length;
   const failed = results.filter((r) => r.status === 'rejected').length;
+
+  if (failed > 0) {
+    results.forEach((r, i) => {
+      if (r.status === 'rejected') {
+        console.warn(
+          `📤 Push failed: ${describePushError(r.reason)} — ${targeted[i].sub.endpoint.slice(0, 64)}…`,
+        );
+      }
+    });
+  }
 
   console.log(
     `📤 Notification sent: ${sent} delivered, ${failed} failed, ${expired.length} expired (of ${targeted.length} targeted)`,

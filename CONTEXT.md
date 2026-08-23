@@ -78,6 +78,20 @@ _Avoid_: User account, notification profile, device user
 A push initiated by the committee (Announcement blast or optional notify-on-save for an Event). Delivered only to Subscribers who have committee messages enabled. Not an Adhan reminder; not a Schedule update.
 _Avoid_: Calling these Adhan; treating Event optional push as a separate opt-in from announcements
 
+## Media
+
+**Video**:
+A public upload to the SEMRA YouTube channel — a Jumu'ah khutbah, Taraweeh, Tahajjud, khatm, or event recording. Canonical source is YouTube; the landing Videos page mirrors the channel's uploads and never stores them.
+_Avoid_: media, post, recording (as the canonical term for an upload)
+
+**Latest video**:
+The most recently published Video on the SEMRA YouTube channel. Featured at the top of the landing Videos page; updates automatically whenever the committee uploads.
+_Avoid_: Featured video of the week, newest upload (keep one term)
+
+**SEMRA YouTube channel**:
+The committee-managed YouTube channel (@semra-suncity) where khutbahs and Qur'an programmes are published. The public source of truth for Videos.
+_Avoid_: Calling the landing Videos page the channel; calling it the media account
+
 ## Surfaces
 
 **Landing site**:

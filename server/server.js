@@ -45,7 +45,9 @@ import {
   pushAll,
   sendMany,
   pruneExpired,
+  describePushError,
 } from './push.js';
+import { getLatestVideos } from './videos.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
@@ -151,6 +153,17 @@ app.put('/api/academy', (req, res) => {
   writeAcademy(result.academy);
   console.log(`📚 Academy updated: ${result.academy.term} · ${result.academy.session}`);
   res.json({ ok: true, academy: result.academy });
+});
+
+// ── API: latest video from the SEMRA YouTube channel (ADR 0005) ──
+
+app.get('/api/videos', async (_req, res) => {
+  try {
+    res.json(await getLatestVideos());
+  } catch (err) {
+    console.warn(`🎬 YouTube feed fetch failed: ${err.message}`);
+    res.status(502).json({ error: 'Could not reach YouTube right now' });
+  }
 });
 
 // ── API: get announcements ──
@@ -345,8 +358,7 @@ async function tickAdhanReminders() {
       const item = due[i];
       if (r.status === 'rejected') {
         console.warn(
-          `Adhan push failed (${item.reminder.id}):`,
-          r.reason?.statusCode || r.reason?.message,
+          `Adhan push failed (${item.reminder.id}): ${describePushError(r.reason)} — ${item.endpoint.slice(0, 64)}…`,
         );
       } else if (!r.value?.expired) {
         console.log(`🕌 Adhan push: ${item.reminder.id} → ${item.endpoint.slice(0, 48)}…`);
