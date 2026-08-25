@@ -13,3 +13,7 @@ node_modules/
 # Runtime / PII state — never commit live push endpoints or the send log
 data/subscriptions.json
 data/adhan-sent.json
+
+# Admin-uploaded academy gallery photos — live media, not source
+data/media/
+docs/

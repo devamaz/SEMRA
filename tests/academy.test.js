@@ -4,7 +4,11 @@
 
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
-import { normalizeAcademy } from '../server/store.js';
+import {
+  normalizeAcademy,
+  normalizeYouTubeUrl,
+  decodeImageUpload,
+} from '../server/store.js';
 
 const valid = {
   session: '2026/2027',
@@ -93,5 +97,78 @@ describe('normalizeAcademy', () => {
       existing,
     );
     assert.equal(academy.classes[0].id, 'acad-1');
+  });
+
+  it('defaults an empty gallery on creation', () => {
+    const { academy } = normalizeAcademy(valid);
+    assert.deepEqual(academy.gallery, { photos: [], videos: [] });
+  });
+
+  it('preserves the gallery when editing academy settings', () => {
+    const existing = {
+      session: '2026/2027',
+      term: '1st term',
+      termStart: '12th of September',
+      classes: [{ id: 'acad-1', label: 'Old', days: 'Saturdays', time: '9:00 AM' }],
+      gallery: {
+        photos: [
+          { id: 'p1', file: 'a.jpg', caption: 'Morning class', date: '15 Sep 2026', addedAt: '2026-09-15T09:00:00.000Z' },
+          { id: 'p2', file: 'b.jpg', caption: '', date: '', addedAt: '' },
+          { id: 'broken', date: 'x' } /* missing file → dropped */
+        ],
+        videos: [
+          { id: 'v1', url: 'https://www.youtube.com/watch?v=abc123', caption: 'Recitation', date: '', addedAt: '2026-09-14T09:00:00.000Z' },
+          { id: 'broken-v' } /* missing url → dropped */
+        ]
+      }
+    };
+    const { academy } = normalizeAcademy({ ...valid, term: '2nd term' }, existing);
+    assert.equal(academy.term, '2nd term');
+    assert.equal(academy.gallery.photos.length, 2);
+    assert.equal(academy.gallery.photos[0].file, 'a.jpg');
+    assert.equal(academy.gallery.videos.length, 1);
+    assert.equal(academy.gallery.videos[0].url, 'https://www.youtube.com/watch?v=abc123');
+  });
+});
+
+describe('normalizeYouTubeUrl', () => {
+  it('canonicalizes watch, youtu.be, shorts, and embed links', () => {
+    assert.deepEqual(normalizeYouTubeUrl('https://www.youtube.com/watch?v=dQw4w9WgXcQ'), {
+      videoId: 'dQw4w9WgXcQ',
+      url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+    });
+    assert.deepEqual(normalizeYouTubeUrl('https://youtu.be/dQw4w9WgXcQ'), {
+      videoId: 'dQw4w9WgXcQ',
+      url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+    });
+    assert.deepEqual(normalizeYouTubeUrl('https://youtube.com/shorts/dQw4w9WgXcQ?si=x'), {
+      videoId: 'dQw4w9WgXcQ',
+      url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+    });
+    assert.deepEqual(normalizeYouTubeUrl('https://www.youtube.com/embed/dQw4w9WgXcQ'), {
+      videoId: 'dQw4w9WgXcQ',
+      url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+    });
+  });
+
+  it('rejects non-YouTube links', () => {
+    assert.match(normalizeYouTubeUrl('https://vimeo.com/12345').error, /YouTube/);
+    assert.match(normalizeYouTubeUrl('https://example.com/watch?v=dQw4w9WgXcQ').error, /YouTube/);
+    assert.match(normalizeYouTubeUrl('').error, /YouTube/);
+  });
+});
+
+describe('decodeImageUpload', () => {
+  it('decodes a base64 data URL into a buffer with a safe filename', () => {
+    const png = Buffer.from('fake-png-bytes').toString('base64');
+    const { file, fileName } = decodeImageUpload({ type: 'image/png', data: 'data:image/png;base64,' + png });
+    assert.deepEqual(file, Buffer.from('fake-png-bytes'));
+    assert.match(fileName, /^[0-9a-f-]{36}\.png$/);
+  });
+
+  it('rejects unsupported types and missing data', () => {
+    assert.match(decodeImageUpload({ type: 'image/tiff', data: 'x' }).error, /unsupported/);
+    assert.match(decodeImageUpload({ type: 'image/jpeg' }).error, /required/);
+    assert.match(decodeImageUpload({}).error, /unsupported/);
   });
 });

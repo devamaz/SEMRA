@@ -10,8 +10,10 @@ import { readSubscribers, writeSubscribers } from './store.js';
 const VAPID_PUBLIC  = 'BAR6CO0dempNehU07brFsFaphumuN3lfMsWItTn6QdM3EhQt2FDjggaKu1mvNnM7ogACyQrYZe2TwJThgy-U9UI';
 const VAPID_PRIVATE = 'nMyHoD3q-PU7mlh86wckhEMPIH7ANgnSHRNY0p2McFI';
 
+// Apple rejects non-routable subjects (e.g. `.local`) with 403 BadJwtToken —
+// the sub claim must be a valid mailto: or https: URI.
 webpush.setVapidDetails(
-  'mailto:admin@suncitymosque.local',
+  'https://semra.ng',
   VAPID_PUBLIC,
   VAPID_PRIVATE
 );

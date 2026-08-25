@@ -1,4 +1,4 @@
-const SHELL_CACHE = "semra-shell-v6";
+const SHELL_CACHE = "semra-shell-v7";
 const DATA_CACHE = "semra-data-v1";
 const FONT_CACHE = "semra-fonts-v1";
 
@@ -21,6 +21,8 @@ const SHELL = [
   "/shared/state.js",
   "/shared/notification-settings.js",
   "/shared/announcements.js",
+  "/shared/dua-data.js",
+  "/shared/quran-data.js",
 ];
 
 /** GET paths safe to cache for offline (read models only). */

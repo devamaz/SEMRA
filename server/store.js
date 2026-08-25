@@ -14,6 +14,9 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
 const DATA_DIR = join(ROOT, 'data');
 
+export const MEDIA_DIR = join(DATA_DIR, 'media');
+export const MEDIA_URL = '/media';
+
 const SUBS_FILE = join(DATA_DIR, 'subscriptions.json');
 const SENT_LOG_FILE = join(DATA_DIR, 'adhan-sent.json');
 const ANNOUNCEMENTS_FILE = join(DATA_DIR, 'announcements.json');
@@ -22,6 +25,7 @@ const TIMES_FILE = join(DATA_DIR, 'times.json');
 const ACADEMY_FILE = join(DATA_DIR, 'academy.json');
 
 if (!existsSync(DATA_DIR)) mkdirSync(DATA_DIR, { recursive: true });
+if (!existsSync(MEDIA_DIR)) mkdirSync(MEDIA_DIR, { recursive: true });
 
 // ── Generic JSON ──
 
@@ -176,6 +180,10 @@ const SEED_ACADEMY = {
   session: '2026/2027',
   term: '1st term',
   termStart: '12th of September',
+  gallery: {
+    photos: [],
+    videos: []
+  },
   classes: [
     {
       id: 'acad-children-weekend',
@@ -211,6 +219,122 @@ function classForm(row) {
   return /adult/i.test(hint) ? 'islamiyya form Adult.pdf' : DEFAULT_FORM;
 }
 
+// ── Academy gallery (photos stored on the server, videos linked to YouTube) ──
+
+const IMAGE_TYPES = {
+  'image/jpeg': 'jpg',
+  'image/png': 'png',
+  'image/webp': 'webp',
+  'image/gif': 'gif'
+};
+export const MAX_PHOTO_BYTES = 10 * 1024 * 1024;
+
+/**
+ * Normalize a gallery payload into photos/videos lists.
+ * Drops records that don't carry their identity (id + file for photos,
+ * id + url for videos); everything else passes through as strings.
+ */
+function parseGallery(raw) {
+  const photos = Array.isArray(raw?.photos) ? raw.photos : [];
+  const videos = Array.isArray(raw?.videos) ? raw.videos : [];
+  return {
+    photos: photos
+      .filter((p) => p && typeof p === 'object' && p.id && p.file)
+      .map((p) => ({
+        id: String(p.id),
+        file: String(p.file),
+        caption: String(p.caption ?? ''),
+        date: String(p.date ?? ''),
+        addedAt: String(p.addedAt ?? '')
+      })),
+    videos: videos
+      .filter((v) => v && typeof v === 'object' && v.id && v.url)
+      .map((v) => ({
+        id: String(v.id),
+        url: String(v.url),
+        caption: String(v.caption ?? ''),
+        date: String(v.date ?? ''),
+        addedAt: String(v.addedAt ?? '')
+      }))
+  };
+}
+
+/**
+ * Canonicalize a YouTube link to `https://www.youtube.com/watch?v={id}`.
+ * Accepts watch, youtu.be, shorts, embed, and live forms. Pure — unit-tested.
+ */
+const YT_ID_RE = /(?:youtube\.com\/(?:watch\?[^#]*v=|shorts\/|embed\/|live\/)|youtu\.be\/)([A-Za-z0-9_-]{6,})/;
+
+export function normalizeYouTubeUrl(raw) {
+  const input = String(raw ?? '').trim();
+  const match = input.match(YT_ID_RE);
+  if (!match) return { error: 'url must be a YouTube video link' };
+  const videoId = match[1];
+  return { videoId, url: `https://www.youtube.com/watch?v=${videoId}` };
+}
+
+/**
+ * Validate + decode a base64 image upload from the admin.
+ * Returns { file: Buffer, fileName, ext } or { error }. Pure — unit-tested.
+ */
+export function decodeImageUpload(body) {
+  const source = body && typeof body === 'object' ? body : {};
+  const ext = IMAGE_TYPES[String(source.type ?? '')];
+  if (!ext) return { error: 'unsupported image type — use jpeg, png, webp, or gif' };
+
+  const raw = String(source.data ?? '').trim();
+  if (!raw) return { error: 'image data is required' };
+  const b64 = raw.startsWith('data:') ? raw.slice(raw.indexOf(',') + 1) : raw;
+  if (!/^[A-Za-z0-9+/=\s]+$/.test(b64)) return { error: 'invalid image data' };
+
+  const file = Buffer.from(b64.replace(/\s/g, ''), 'base64');
+  if (file.length === 0) return { error: 'empty image' };
+  if (file.length > MAX_PHOTO_BYTES) {
+    return { error: `image must be under ${Math.floor(MAX_PHOTO_BYTES / 1024 / 1024)} MB` };
+  }
+  return { file, ext, fileName: `${crypto.randomUUID()}.${ext}` };
+}
+
+/** Append an Academy photo (file already written to MEDIA_DIR) — newest first. */
+export function addAcademyPhoto({ file, caption, date }) {
+  const academy = readAcademy();
+  academy.gallery.photos.unshift({
+    id: crypto.randomUUID(),
+    file,
+    caption: String(caption ?? '').trim(),
+    date: String(date ?? '').trim(),
+    addedAt: new Date().toISOString()
+  });
+  writeAcademy(academy);
+  return academy.gallery.photos[0];
+}
+
+/** Append an Academy video (YouTube link only — never a file) — newest first. */
+export function addAcademyVideo({ url, caption, date }) {
+  const academy = readAcademy();
+  academy.gallery.videos.unshift({
+    id: crypto.randomUUID(),
+    url,
+    caption: String(caption ?? '').trim(),
+    date: String(date ?? '').trim(),
+    addedAt: new Date().toISOString()
+  });
+  writeAcademy(academy);
+  return academy.gallery.videos[0];
+}
+
+/** Remove a gallery item (photo or video) by id; returns the removed record or null. */
+export function removeGalleryItem(kind, id) {
+  if (kind !== 'photo' && kind !== 'video') return null;
+  const academy = readAcademy();
+  const list = kind === 'photo' ? academy.gallery.photos : academy.gallery.videos;
+  const index = list.findIndex((item) => item.id === id);
+  if (index < 0) return null;
+  const [removed] = list.splice(index, 1);
+  writeAcademy(academy);
+  return removed;
+}
+
 export function readAcademy() {
   const academy = readJSON(ACADEMY_FILE, SEED_ACADEMY);
   if (!academy || typeof academy !== 'object') return structuredClone(SEED_ACADEMY);
@@ -218,6 +342,7 @@ export function readAcademy() {
     session: String(academy.session ?? ''),
     term: String(academy.term ?? ''),
     termStart: String(academy.termStart ?? ''),
+    gallery: parseGallery(academy.gallery),
     classes: Array.isArray(academy.classes)
       ? academy.classes
           .filter((row) => row && typeof row === 'object')
@@ -272,6 +397,7 @@ export function normalizeAcademy(body, existing = null) {
       session,
       term,
       termStart,
+      gallery: parseGallery(source.gallery ?? existing?.gallery),
       classes
     }
   };

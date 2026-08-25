@@ -146,6 +146,7 @@ async function setupNotifications() {
 TimesData.init().then(() => {
   View.render('today', State.getSettings());
 });
+View.refreshNewsDot();
 tick();
 setInterval(tick, 1000);
 

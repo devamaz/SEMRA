@@ -258,15 +258,6 @@ body {
   padding: 0 2px;
 }
 
-.next-foot {
-  margin-top: 12px;
-  font-size: 12.5px;
-  color: var(--muted);
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
 .dot {
   width: 6px;
   height: 6px;
@@ -1101,4 +1092,314 @@ html.standalone .nav {
 
 html.standalone .app {
   padding-bottom: calc(86px + env(safe-area-inset-bottom, 0px));
+}
+
+/* ── Du'a & Adhkār ── */
+
+.dua-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 16px 18px;
+  margin-bottom: 11px;
+}
+
+.dua-card.tap {
+  cursor: pointer;
+}
+
+.dua-card .ar {
+  font-family: var(--font-display);
+  font-size: 21px;
+  line-height: 1.85;
+  color: var(--deen-d);
+  text-align: right;
+  direction: rtl;
+  margin-bottom: 9px;
+}
+
+.dua-card .tr {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+.dua-card .cnt {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 11px;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--gold-d);
+  background: oklch(95% 0.05 80);
+  padding: 4px 10px;
+  border-radius: 999px;
+  transition: transform 0.15s ease, background 0.2s;
+}
+
+.dua-card .cnt.bump {
+  transform: scale(1.12);
+}
+
+.dua-card .cnt em {
+  font-style: normal;
+  font-family: var(--font-body);
+  font-variant-numeric: tabular-nums;
+}
+
+.dua-card.done {
+  border-color: oklch(80% 0.08 160);
+  background: oklch(97% 0.02 160 / 0.6);
+}
+
+.dua-card.done .cnt {
+  color: var(--deen-d);
+  background: oklch(94% 0.04 160);
+}
+
+/* ── Qur'an player ── */
+
+.qp {
+  position: sticky;
+  top: 8px;
+  z-index: 20;
+  margin: 14px 16px 0;
+  background: linear-gradient(160deg, oklch(38% 0.09 160), oklch(30% 0.08 162));
+  color: #fff;
+  border-radius: 22px;
+  padding: 20px 20px 18px;
+  position: relative;
+  overflow: hidden;
+}
+
+.qp::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'><g fill='none' stroke='%23ffffff' stroke-width='1' opacity='0.08'><path d='M40 4 L48 32 L76 40 L48 48 L40 76 L32 48 L4 40 L32 32 Z'/></g></svg>");
+  background-size: 60px 60px;
+}
+
+.qp > * {
+  position: relative;
+  z-index: 1;
+}
+
+.qp .reciter-btn {
+  border: 0;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 700;
+}
+
+.qp .reciter-btn::after {
+  content: " ▾";
+}
+
+.qp .surah-name {
+  font-family: var(--font-display);
+  font-size: 25px;
+  font-weight: 700;
+  margin-top: 3px;
+  letter-spacing: 0.01em;
+}
+
+.qp .surah-ar {
+  font-family: var(--font-display);
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.82);
+  margin-top: 1px;
+  direction: rtl;
+}
+
+.qp .progress {
+  height: 5px;
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: 3px;
+  margin: 16px 0 8px;
+  overflow: hidden;
+}
+
+.qp .progress .bar {
+  height: 100%;
+  width: 0%;
+  background: var(--gold);
+  border-radius: 3px;
+  transition: width 0.25s linear;
+}
+
+.qp .times {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.72);
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+}
+
+.qp .qp-err {
+  min-height: 0;
+  font-size: 11.5px;
+  line-height: 1.45;
+  color: oklch(85% 0.09 80);
+  margin-top: 8px;
+}
+
+.qp .qp-err:empty {
+  display: none;
+}
+
+.qp .ctrls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  margin-top: 12px;
+}
+
+.qp .ctrls button {
+  border: 0;
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+}
+
+.qp .ctrls button:active {
+  transform: scale(0.94);
+}
+
+.qp .ctrls .play {
+  width: 56px;
+  height: 56px;
+  background: var(--gold);
+  color: var(--deen-d);
+}
+
+.qp .ctrls svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+
+.qp .ctrls .play svg {
+  width: 22px;
+  height: 22px;
+}
+
+.surah-list {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+.srow {
+  display: grid;
+  grid-template-columns: 32px 1fr auto;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 16px;
+  border-top: 1px solid var(--border);
+  cursor: pointer;
+}
+
+.srow:first-child {
+  border-top: 0;
+}
+
+.srow.playing {
+  background: oklch(96% 0.04 160 / 0.5);
+}
+
+.srow .num {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: oklch(95% 0.02 160);
+  color: var(--muted);
+  display: grid;
+  place-items: center;
+  font-size: 10.5px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.srow.playing .num {
+  background: var(--deen);
+  color: #fff;
+}
+
+.srow .nm {
+  font-weight: 600;
+  font-size: 14.5px;
+  color: var(--fg);
+}
+
+.srow .nm small {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 14px;
+  color: var(--muted);
+  font-weight: 400;
+  direction: rtl;
+}
+
+.srow .dur {
+  font-size: 12px;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.srow .eq {
+  display: flex;
+  gap: 2px;
+  align-items: flex-end;
+  height: 14px;
+  margin-right: 2px;
+}
+
+.srow .eq i {
+  width: 2.5px;
+  background: var(--deen);
+  border-radius: 1px;
+  display: block;
+  animation: eq 0.9s ease-in-out infinite;
+}
+
+.srow .eq i:nth-child(1) {
+  height: 6px;
+  animation-delay: 0s;
+}
+
+.srow .eq i:nth-child(2) {
+  height: 12px;
+  animation-delay: 0.2s;
+}
+
+.srow .eq i:nth-child(3) {
+  height: 8px;
+  animation-delay: 0.4s;
+}
+
+@keyframes eq {
+  0%,
+  100% {
+    transform: scaleY(0.4);
+  }
+  50% {
+    transform: scaleY(1);
+  }
 }

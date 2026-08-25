@@ -6,6 +6,7 @@
  *   /app/    → pwa/
  *   /admin/  → admin/
  *   /shared/ → shared/
+ *   /media/  → data/media/ (academy gallery photo files)
  *
  * Modules:
  *   store.js — JSON persistence, seeds, record mapping
@@ -17,6 +18,7 @@
 
 import express from 'express';
 import { join, dirname } from 'path';
+import { unlinkSync, writeFileSync } from 'fs';
 import { fileURLToPath } from 'url';
 import { normalizeSettings } from '../shared/notification-settings.js';
 import {
@@ -40,6 +42,12 @@ import {
   writeTimes,
   readSentLog,
   writeSentLog,
+  MEDIA_DIR,
+  decodeImageUpload,
+  normalizeYouTubeUrl,
+  addAcademyPhoto,
+  addAcademyVideo,
+  removeGalleryItem,
 } from './store.js';
 import {
   pushAll,
@@ -62,6 +70,7 @@ app.use(express.json());
 app.use('/app', express.static(join(ROOT, 'pwa')));
 app.use('/admin', express.static(join(ROOT, 'admin')));
 app.use('/shared', express.static(join(ROOT, 'shared')));
+app.use('/media', express.static(MEDIA_DIR));
 app.use(express.static(join(ROOT, 'landing')));
 
 /**
@@ -155,6 +164,56 @@ app.put('/api/academy', (req, res) => {
   res.json({ ok: true, academy: result.academy });
 });
 
+// ── API: Academy gallery (photos stored on the server, videos linked to YouTube) ──
+
+app.post('/api/academy/gallery/photos', (req, res) => {
+  const decoded = decodeImageUpload(req.body);
+  if (decoded.error) return res.status(400).json({ error: decoded.error });
+
+  try {
+    writeFileSync(join(MEDIA_DIR, decoded.fileName), decoded.file);
+  } catch (err) {
+    return res.status(500).json({ error: 'Could not store image' });
+  }
+
+  const photo = addAcademyPhoto({
+    file: decoded.fileName,
+    caption: req.body?.caption,
+    date: req.body?.date
+  });
+  console.log(`🖼️  Academy photo added: ${decoded.fileName}`);
+  res.status(201).json({ ok: true, photo });
+});
+
+app.post('/api/academy/gallery/videos', (req, res) => {
+  const result = normalizeYouTubeUrl(req.body?.url);
+  if (result.error) return res.status(400).json({ error: result.error });
+
+  const video = addAcademyVideo({
+    url: result.url,
+    caption: req.body?.caption,
+    date: req.body?.date
+  });
+  console.log(`🎬 Academy video added: ${result.videoId}`);
+  res.status(201).json({ ok: true, video });
+});
+
+app.delete('/api/academy/gallery/:kind/:id', (req, res) => {
+  const { kind, id } = req.params;
+  if (kind !== 'photo' && kind !== 'video') {
+    return res.status(400).json({ error: 'kind must be photo or video' });
+  }
+
+  const removed = removeGalleryItem(kind, id);
+  if (!removed) return res.status(404).json({ error: 'Not found' });
+
+  if (kind === 'photo') {
+    try { unlinkSync(join(MEDIA_DIR, removed.file)); } catch { /* file may already be gone */ }
+  }
+  console.log(`🗑️  Academy gallery ${kind} removed: ${id}`);
+  res.json({ ok: true });
+});
+
 // ── API: latest video from the SEMRA YouTube channel (ADR 0005) ──
 
 app.get('/api/videos', async (_req, res) => {
@@ -186,7 +245,8 @@ app.post('/api/notify', async (req, res) => {
     title,
     body,
     tag: tag || 'General',
-    when: 'just now'
+    when: 'just now',
+    ts: Date.now()
   });
   writeAnnouncements(announcements);
 

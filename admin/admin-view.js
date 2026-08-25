@@ -371,6 +371,10 @@ function escapeAttr(str) {
     .replace(/</g, '&lt;');
 }
 
+function escapeHtml(str) {
+  return escapeAttr(str).replace(/>/g, '&gt;');
+}
+
 function renderEvents(settings) {
   const container = el('div', 'screen on');
   const editing = !!eventForm.id;
@@ -571,6 +575,10 @@ function buildAcademyForm(sec, academy, settings) {
     '<div style="display:flex;flex-direction:column;gap:8px;margin-top:8px">' +
       '<button id="acSave" class="btn primary" style="width:100%">Save changes</button>' +
       '<p id="acStatus" style="text-align:center;font-size:12.5px;color:var(--muted);margin:0">Changes appear on the public Academy page.</p>' +
+    '</div>' +
+    '<div class="setting-group" style="margin-top:18px;margin-bottom:10px">' +
+      '<div class="set-row"><div class="lab"><b>Academy gallery</b><small>Photos &amp; videos shown on the public Academy page, newest first</small></div></div>' +
+      '<div id="acGallery"><p style="text-align:center;color:var(--muted);padding:20px">Loading…</p></div>' +
     '</div>';
 
   function renderClassRows() {
@@ -648,6 +656,207 @@ function buildAcademyForm(sec, academy, settings) {
       alert('Server unreachable');
     }
   });
+
+  renderAcademyGallery(form);
+}
+
+// ── Academy gallery admin ──
+
+const GAL_INPUT =
+  'padding:9px 12px;border:1.5px solid var(--border);border-radius:10px;font-size:13px;font-family:var(--font-body);color:var(--fg);background:var(--paper)';
+
+function ytThumbId(url) {
+  const m = String(url || '').match(/v=([A-Za-z0-9_-]{6,})/);
+  return m ? m[1] : '';
+}
+
+function readAsDataURL(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+
+function galleryItemRow(item) {
+  const thumb =
+    item.kind === 'photo'
+      ? '<img src="/media/' + escapeAttr(item.file) + '" alt="" style="width:56px;height:40px;object-fit:cover;border-radius:8px;flex:none" />'
+      : '<img src="https://i.ytimg.com/vi/' + escapeAttr(ytThumbId(item.url)) + '/hqdefault.jpg" alt="" style="width:56px;height:40px;object-fit:cover;border-radius:8px;flex:none" />';
+  return (
+    '<div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border)">' +
+      thumb +
+      '<div style="flex:1;min-width:0">' +
+        '<div style="font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">' +
+          escapeHtml(item.caption || (item.kind === 'photo' ? 'Untitled photo' : 'Untitled video')) +
+        '</div>' +
+        '<div style="font-size:11.5px;color:var(--muted)">' + escapeHtml(item.date || 'No date') + '</div>' +
+      '</div>' +
+      '<button data-del="' + escapeAttr(item.id) + '" aria-label="Remove" style="flex:none;width:30px;height:30px;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--danger,#b33);cursor:pointer">×</button>' +
+    '</div>'
+  );
+}
+
+/** Build the upload/add forms and bind their handlers; lists refresh independently. */
+function buildGalleryBlock(box, gallery) {
+  const photos = Array.isArray(gallery.photos) ? gallery.photos : [];
+  const videos = Array.isArray(gallery.videos) ? gallery.videos : [];
+
+  box.innerHTML =
+    '<div style="padding:12px;border:1px solid var(--border);border-radius:12px;background:var(--surface);margin-bottom:10px">' +
+      '<b style="font-size:13px">Add photos</b>' +
+      '<input id="galPhotoFiles" type="file" accept="image/jpeg,image/png,image/webp,image/gif" multiple style="width:100%;margin:8px 0;font-size:12.5px" />' +
+      '<input id="galPhotoCaption" placeholder="Caption (optional)" style="width:100%;margin-bottom:6px;' + GAL_INPUT + '" />' +
+      '<input id="galPhotoDate" placeholder="Date (optional, e.g. 15 Sep 2026)" style="width:100%;' + GAL_INPUT + '" />' +
+      '<button id="galPhotoUpload" class="btn primary" style="width:100%;margin-top:8px">Upload photos</button>' +
+      '<p id="galPhotoStatus" style="font-size:12px;color:var(--muted);margin:8px 0 0"></p>' +
+    '</div>' +
+    '<div style="padding:12px;border:1px solid var(--border);border-radius:12px;background:var(--surface);margin-bottom:10px">' +
+      '<b style="font-size:13px">Add video (YouTube link)</b>' +
+      '<input id="galVideoUrl" placeholder="e.g. https://youtu.be/… or youtube.com/watch?v=…" style="width:100%;margin-top:8px;' + GAL_INPUT + '" />' +
+      '<input id="galVideoCaption" placeholder="Caption (optional)" style="width:100%;margin-top:6px;' + GAL_INPUT + '" />' +
+      '<input id="galVideoDate" placeholder="Date (optional)" style="width:100%;margin-top:6px;' + GAL_INPUT + '" />' +
+      '<button id="galVideoAdd" class="btn primary" style="width:100%;margin-top:8px">Add video</button>' +
+      '<p id="galVideoStatus" style="font-size:12px;color:var(--muted);margin:8px 0 0"></p>' +
+    '</div>' +
+    '<div id="galPhotoList"></div>' +
+    '<div id="galVideoList"></div>';
+
+  const refreshGallery = () => {
+    fetch('/api/academy')
+      .then((res) => res.json())
+      .then((academy) => renderGalleryLists(box, academy.gallery))
+      .catch(() => {
+        const photoList = box.querySelector('#galPhotoList');
+        if (photoList) photoList.innerHTML = '<p style="font-size:12.5px;color:var(--muted);margin:8px 0">Could not load gallery.</p>';
+      });
+  };
+
+  box.querySelector('#galPhotoUpload').addEventListener('click', async () => {
+    const input = box.querySelector('#galPhotoFiles');
+    const files = Array.from(input.files || []);
+    const caption = box.querySelector('#galPhotoCaption').value.trim();
+    const date = box.querySelector('#galPhotoDate').value.trim();
+    const status = box.querySelector('#galPhotoStatus');
+    if (!files.length) {
+      status.textContent = 'Choose at least one image first.';
+      return;
+    }
+    status.textContent = 'Uploading…';
+    for (const file of files) {
+      const data = await readAsDataURL(file);
+      try {
+        const res = await fetch('/api/academy/gallery/photos', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ type: file.type, data, caption, date })
+        });
+        const result = await res.json();
+        if (!res.ok) throw new Error(result.error || 'Upload failed');
+      } catch (err) {
+        status.textContent = 'Could not upload ' + file.name + ': ' + (err.message || 'server unreachable');
+        return;
+      }
+    }
+    input.value = '';
+    box.querySelector('#galPhotoCaption').value = '';
+    box.querySelector('#galPhotoDate').value = '';
+    status.textContent = '✓ Photos added to the gallery.';
+    status.style.color = 'var(--success, #2a7a4b)';
+    refreshGallery();
+  });
+
+  box.querySelector('#galVideoAdd').addEventListener('click', async () => {
+    const url = box.querySelector('#galVideoUrl').value.trim();
+    const caption = box.querySelector('#galVideoCaption').value.trim();
+    const date = box.querySelector('#galVideoDate').value.trim();
+    const status = box.querySelector('#galVideoStatus');
+    if (!url) {
+      status.textContent = 'Paste a YouTube link first.';
+      return;
+    }
+    try {
+      const res = await fetch('/api/academy/gallery/videos', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ url, caption, date })
+      });
+      const result = await res.json();
+      if (!res.ok) throw new Error(result.error || 'Could not add video');
+      box.querySelector('#galVideoUrl').value = '';
+      box.querySelector('#galVideoCaption').value = '';
+      box.querySelector('#galVideoDate').value = '';
+      status.textContent = '✓ Video added to the gallery.';
+      status.style.color = 'var(--success, #2a7a4b)';
+      refreshGallery();
+    } catch (err) {
+      status.textContent = err.message || 'Could not add video';
+    }
+  });
+
+  renderGalleryLists(box, { photos, videos });
+}
+
+/** Fill the photo/video lists and bind delete buttons. */
+function renderGalleryLists(box, gallery) {
+  const photos = Array.isArray(gallery?.photos) ? gallery.photos : [];
+  const videos = Array.isArray(gallery?.videos) ? gallery.videos : [];
+  const photoList = box.querySelector('#galPhotoList');
+  const videoList = box.querySelector('#galVideoList');
+  if (!photoList || !videoList) return;
+
+  photoList.innerHTML =
+    '<div class="sec-h" style="margin-top:6px"><h2 style="font-size:15px">Photos</h2></div>' +
+    (photos.length
+      ? photos.map((p) => galleryItemRow({ ...p, kind: 'photo' })).join('')
+      : '<p style="font-size:12.5px;color:var(--muted);margin:8px 0">No photos yet.</p>');
+  videoList.innerHTML =
+    '<div class="sec-h" style="margin-top:6px"><h2 style="font-size:15px">Videos</h2></div>' +
+    (videos.length
+      ? videos.map((v) => galleryItemRow({ ...v, kind: 'video' })).join('')
+      : '<p style="font-size:12.5px;color:var(--muted);margin:8px 0">No videos yet.</p>');
+
+  photoList.querySelectorAll('[data-del]').forEach((btn) => {
+    btn.addEventListener('click', async () => {
+      if (!confirm('Remove this photo from the gallery?')) return;
+      try {
+        await fetch('/api/academy/gallery/photo/' + btn.dataset.del, { method: 'DELETE' });
+        refreshGalleryLists();
+      } catch (err) {
+        alert('Could not delete');
+      }
+    });
+  });
+  videoList.querySelectorAll('[data-del]').forEach((btn) => {
+    btn.addEventListener('click', async () => {
+      if (!confirm('Remove this video from the gallery?')) return;
+      try {
+        await fetch('/api/academy/gallery/video/' + btn.dataset.del, { method: 'DELETE' });
+        refreshGalleryLists();
+      } catch (err) {
+        alert('Could not delete');
+      }
+    });
+  });
+
+  function refreshGalleryLists() {
+    fetch('/api/academy')
+      .then((res) => res.json())
+      .then((academy) => renderGalleryLists(box, academy.gallery))
+      .catch(() => { /* leave lists as-is on failure */ });
+  }
+}
+
+/** Fetch the gallery and build the admin block inside the Academy form. */
+function renderAcademyGallery(form) {
+  const box = form.querySelector('#acGallery');
+  fetch('/api/academy')
+    .then((res) => res.json())
+    .then((academy) => buildGalleryBlock(box, academy.gallery))
+    .catch(() => {
+      box.innerHTML = '<p style="text-align:center;color:var(--muted);padding:20px">Could not load gallery.</p>';
+    });
 }
 
 // ── Public interface ──
