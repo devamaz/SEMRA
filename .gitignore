@@ -17,3 +17,4 @@ data/adhan-sent.json
 # Admin-uploaded academy gallery photos — live media, not source
 data/media/
 docs/
+intro/

@@ -55,7 +55,7 @@ sudo -u "${SUDO_USER:-root}" pm2 save
 # ── 5. Boot persistence ──────────────────────────────────────────────────────
 log "Configuring pm2 to start on boot"
 # `pm2 startup` prints a command; run it as root.
-STARTUP_CMD="$(sudo -u "${SUDO_USER:-root}" pm2 startup systemd -u "${SUDO_USER:-root}" --hp "/home/${SUDO_USER:-root}" 2>/dev/null | grep 'sudo ' | head -n1)"
+STARTUP_CMD="$(sudo -u "${SUDO_USER:-root}" pm2 startup systemd -u "${SUDO_USER:-root}" --hp "/home/${SUDO_USER:-root}" 2>/dev/null | grep 'sudo ' | head -n1 || true)"
 if [[ -n "${STARTUP_CMD:-}" ]]; then eval "$STARTUP_CMD"; fi
 
 # ── 6. Firewall (optional but recommended) ───────────────────────────────────
@@ -88,6 +88,7 @@ $DOMAIN {
     reverse_proxy 127.0.0.1:$PORT
 }
 EOF
+        systemctl enable --now caddy
         systemctl reload caddy
         echo "HTTPS live at https://$DOMAIN (Caddy handles TLS automatically)"
     fi
